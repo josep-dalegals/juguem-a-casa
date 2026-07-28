@@ -420,31 +420,35 @@ section { padding-block: clamp(64px, 9vw, 110px); background: var(--bg); }
 /* ------- Ticker de patrocinadores (hero) ------- */
 .sponsor-ticker {
   position: relative; overflow: hidden;
-  margin: 0 0 28px; max-width: 780px;
+  margin: 0 0 34px; max-width: 1060px;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
   mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
 }
 .ticker-track {
-  display: flex; align-items: center; gap: 20px;
-  width: max-content; animation: ticker 22s linear infinite;
+  display: flex; align-items: center; gap: 26px;
+  width: max-content; animation: ticker 30s linear infinite;
 }
 @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .sponsor-ticker:hover .ticker-track,
 .sponsor-ticker:focus-within .ticker-track { animation-play-state: paused; }
 .ticker-lead {
-  font-size: .82rem; letter-spacing: .18em; text-transform: uppercase;
+  font-size: .92rem; letter-spacing: .18em; text-transform: uppercase;
   color: rgba(255, 255, 255, .82); font-weight: 800; white-space: nowrap; flex: none;
 }
 .ticker-chip {
   display: inline-flex; align-items: center; justify-content: center;
-  height: 56px; padding: 0 24px; border-radius: 999px; white-space: nowrap; flex: none;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, .3);
+  height: 92px; padding: 0 32px; border-radius: 999px; white-space: nowrap; flex: none;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .34);
 }
-.ticker-chip img { height: 38px; width: auto; display: block; }
+.ticker-chip img { height: 64px; width: auto; display: block; }
+@media (max-width: 640px) {
+  .ticker-chip { height: 74px; padding: 0 22px; }
+  .ticker-chip img { height: 50px; }
+}
 .ticker-chip.light { background: #fff; }
 .ticker-chip.dark { background: #000; }
 .ticker-chip.plus {
-  color: #fff; font-weight: 800; font-size: .9rem; letter-spacing: .09em;
+  color: #fff; font-weight: 800; font-size: 1rem; letter-spacing: .09em;
   text-transform: uppercase; background: transparent; border: 1.5px dashed rgba(255, 255, 255, .6);
 }
 @media (prefers-reduced-motion: reduce) { .ticker-track { animation: none; } }
