@@ -419,7 +419,7 @@ section { padding-block: clamp(64px, 9vw, 110px); background: var(--bg); }
 }
 .hero-club { flex-wrap: wrap; }
 .hero-inst {
-  margin-left: clamp(8px, 2vw, 24px);
+  margin-left: clamp(16px, 3vw, 40px);
   background: rgba(255, 255, 255, .95);
   border-radius: 16px;
   padding: 11px 20px 14px;
@@ -454,6 +454,12 @@ section { padding-block: clamp(64px, 9vw, 110px); background: var(--bg); }
   width: auto;
   object-fit: contain;
   display: block;
+}
+/* el par institucional se va al extremo derecho de la cabecera */
+.hero-club .hero-inst:first-of-type { margin-left: auto; }
+@media (max-width: 900px) {
+  .hero-club .hero-inst:first-of-type { margin-left: 0; }
+  .hero-inst { margin-left: clamp(10px, 2.4vw, 22px); }
 }
 @media (max-width: 640px) {
   .hero-inst { padding: 10px 15px; }
