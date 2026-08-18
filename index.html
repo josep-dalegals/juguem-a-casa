@@ -943,40 +943,46 @@ section { padding-block: clamp(64px, 9vw, 110px); background: var(--bg); }
 @media (prefers-reduced-motion: reduce) { .muro-tile, .muro-tile:hover { transition: none; transform: none; } }
 .muro-tile.tile-white { background: #FFFFFF; }
 .muro-tile.tile-black { background: #0B0B0F; border-color: #0B0B0F; }
-.muro-tile .logo-dd {
-  width: min(58%, 118px);
-  aspect-ratio: 514 / 514;
+/* Todos los logos del muro se dibujan dentro de la MISMA caja; contain los ajusta.
+   Antes cada uno tenia su ancho propio (58% Don Domestico, 96% Arteval) y unos se
+   veian el doble que otros. El 92/86 deja aire para que ninguno toque el borde. */
+.muro-tile img {
+  width: 92%;
+  height: 86%;
+  min-height: 0;
   object-fit: contain;
 }
-.muro-tile .logo-qc {
-  width: min(82%, 220px);
-  aspect-ratio: 950 / 370;
-  object-fit: contain;
+/* Refuerzo de trazo para los logos finos o de color claro, que sobre blanco se
+   leian flojos. Las tres sombras de radio minimo engordan el contorno; el
+   brightness los baja un punto. No se repinta ni se recolorea el logo. */
+.tile-white .logo-jj,
+.tile-white .logo-dl,
+.tile-white .logo-ar {
+  filter:
+    drop-shadow(0 0 .6px rgba(0,0,0,.34))
+    drop-shadow(0 0 .6px rgba(0,0,0,.34))
+    drop-shadow(0 0 .6px rgba(0,0,0,.22))
+    saturate(1.12) brightness(.95);
 }
-.muro-tile .logo-jj {
-  width: min(66%, 138px);
-  aspect-ratio: 640 / 495;
-  object-fit: contain;
+/* Don Domestico NO lleva ni sombra ni brightness: su chapa circular tiene el
+   fondo BLANCO OPACO, asi que la sombra le dibuja un anillo gris y el brightness
+   le ensucia el blanco. Se le sube solo el color; lo que lo arregla de verdad es
+   que ahora se ve mucho mas grande. */
+.tile-white .logo-dd { filter: saturate(1.18); }
+/* Calma Dental es el mas palido de todos (taupe claro): necesita bajar de tono.
+   OJO: contrast() aqui ACLARA, porque el taupe esta por encima del gris medio. */
+.tile-white .logo-cd {
+  filter:
+    drop-shadow(0 0 .6px rgba(0,0,0,.34))
+    drop-shadow(0 0 .6px rgba(0,0,0,.34))
+    drop-shadow(0 0 .6px rgba(0,0,0,.26))
+    saturate(1.22) brightness(.80);
 }
-.muro-tile .logo-dl {
-  width: min(82%, 190px);
-  aspect-ratio: 797 / 465;
-  object-fit: contain;
-}
-.muro-tile .logo-ar {
-  width: min(96%, 260px);
-  aspect-ratio: 760 / 326;
-  object-fit: contain;
-}
-.muro-tile .logo-cd {
-  width: min(72%, 156px);
-  aspect-ratio: 999 / 813;
-  object-fit: contain;
-}
-.muro-tile .logo-cn {
-  width: min(96%, 250px);
-  aspect-ratio: 520 / 210;
-  object-fit: contain;
+/* Cinta de la cabecera: ahi los logos no llevan clase propia, asi que no se puede
+   excluir el de Don Domestico. Nada de sombras: solo un punto de color. */
+.ticker-chip.light img {
+  filter:
+    saturate(1.12);
 }
 .muro-tile.tile-ph {
   border: 1.5px dashed var(--line-strong);
@@ -1055,42 +1061,28 @@ section { padding-block: clamp(64px, 9vw, 110px); background: var(--bg); }
 }
 .sponsor-brand.brand-white { background: #FFFFFF; }
 .sponsor-brand.brand-black { background: #0B0B0F; border-bottom-color: #0B0B0F; }
-.sponsor-brand .logo-dd {
-  width: min(140px, 44vw);
-  aspect-ratio: 514 / 514;
-  object-fit: contain;
-}
-.sponsor-brand .logo-qc {
-  width: min(280px, 70vw);
-  aspect-ratio: 950 / 370;
-  object-fit: contain;
-}
-.sponsor-brand .logo-jj {
-  width: min(200px, 56vw);
-  aspect-ratio: 640 / 495;
-  object-fit: contain;
-}
-.sponsor-brand .logo-dl {
-  width: min(250px, 64vw);
-  aspect-ratio: 797 / 465;
-  object-fit: contain;
-}
-.sponsor-brand .logo-ar {
+/* Misma caja para todos los logos de las fichas. */
+.sponsor-brand img {
   width: 100%;
-  max-width: 320px;
-  aspect-ratio: 760 / 326;
+  max-width: 260px;
+  height: 116px;
   object-fit: contain;
 }
-.sponsor-brand .logo-cd {
-  width: min(190px, 52vw);
-  aspect-ratio: 999 / 813;
-  object-fit: contain;
+.brand-white .logo-dd { filter: saturate(1.18); }
+.brand-white .logo-jj,
+.brand-white .logo-dl,
+.brand-white .logo-ar {
+  filter:
+    drop-shadow(0 0 .6px rgba(0,0,0,.30))
+    drop-shadow(0 0 .6px rgba(0,0,0,.30))
+    saturate(1.10) brightness(.96);
 }
-.sponsor-brand .logo-cn {
-  width: 100%;
-  max-width: 300px;
-  aspect-ratio: 520 / 210;
-  object-fit: contain;
+.brand-white .logo-cd {
+  filter:
+    drop-shadow(0 0 .6px rgba(0,0,0,.30))
+    drop-shadow(0 0 .6px rgba(0,0,0,.30))
+    drop-shadow(0 0 .6px rgba(0,0,0,.22))
+    saturate(1.20) brightness(.83);
 }
 .sponsor-slogan {
   font-size: .72rem;
