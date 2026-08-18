@@ -943,15 +943,19 @@ section { padding-block: clamp(64px, 9vw, 110px); background: var(--bg); }
 @media (prefers-reduced-motion: reduce) { .muro-tile, .muro-tile:hover { transition: none; transform: none; } }
 .muro-tile.tile-white { background: #FFFFFF; }
 .muro-tile.tile-black { background: #0B0B0F; border-color: #0B0B0F; }
-/* Todos los logos del muro se dibujan dentro de la MISMA caja; contain los ajusta.
-   Antes cada uno tenia su ancho propio (58% Don Domestico, 96% Arteval) y unos se
-   veian el doble que otros. El 92/86 deja aire para que ninguno toque el borde. */
-.muro-tile img {
-  width: 92%;
-  height: 86%;
-  min-height: 0;
-  object-fit: contain;
-}
+/* Todos los logos ocupan la MISMA SUPERFICIE, no la misma caja.
+   Darles a todos el mismo rectangulo no basta: uno ancho lo llena a lo ancho y uno
+   cuadrado a lo alto, y siguen pareciendo de distinto tamano. Aqui la altura de cada
+   uno sale de su proporcion —altura = 88% / raiz(proporcion)— de modo que alto x ancho
+   da lo mismo en todos. En % del hueco, asi que escala igual en movil. */
+.muro-tile img { width: auto; max-width: 96%; }
+.muro-tile .logo-dd { height: 88%; }   /* cuadrado  1.00 */
+.muro-tile .logo-cd { height: 79%; }   /* 1.23 */
+.muro-tile .logo-jj { height: 77%; }   /* 1.29 */
+.muro-tile .logo-dl { height: 67%; }   /* 1.71 */
+.muro-tile .logo-ar { height: 58%; }   /* 2.33 */
+.muro-tile .logo-cn { height: 56%; }   /* 2.48 */
+.muro-tile .logo-qc { height: 55%; }   /* 2.57  el mas apaisado */
 /* Refuerzo de trazo para los logos finos o de color claro, que sobre blanco se
    leian flojos. Las tres sombras de radio minimo engordan el contorno; el
    brightness los baja un punto. No se repinta ni se recolorea el logo. */
@@ -966,8 +970,7 @@ section { padding-block: clamp(64px, 9vw, 110px); background: var(--bg); }
 }
 /* Don Domestico NO lleva ni sombra ni brightness: su chapa circular tiene el
    fondo BLANCO OPACO, asi que la sombra le dibuja un anillo gris y el brightness
-   le ensucia el blanco. Se le sube solo el color; lo que lo arregla de verdad es
-   que ahora se ve mucho mas grande. */
+   le ensucia el blanco. Se le sube solo el color. */
 .tile-white .logo-dd { filter: saturate(1.18); }
 /* Calma Dental es el mas palido de todos (taupe claro): necesita bajar de tono.
    OJO: contrast() aqui ACLARA, porque el taupe esta por encima del gris medio. */
@@ -1061,13 +1064,15 @@ section { padding-block: clamp(64px, 9vw, 110px); background: var(--bg); }
 }
 .sponsor-brand.brand-white { background: #FFFFFF; }
 .sponsor-brand.brand-black { background: #0B0B0F; border-bottom-color: #0B0B0F; }
-/* Misma caja para todos los logos de las fichas. */
-.sponsor-brand img {
-  width: 100%;
-  max-width: 260px;
-  height: 116px;
-  object-fit: contain;
-}
+/* Misma superficie tambien en las fichas: altura = 116px / raiz(proporcion). */
+.sponsor-brand img { width: auto; max-width: 100%; }
+.sponsor-brand .logo-dd { height: 116px; }
+.sponsor-brand .logo-cd { height: 105px; }
+.sponsor-brand .logo-jj { height: 102px; }
+.sponsor-brand .logo-dl { height:  89px; }
+.sponsor-brand .logo-ar { height:  76px; }
+.sponsor-brand .logo-cn { height:  74px; }
+.sponsor-brand .logo-qc { height:  72px; }
 .brand-white .logo-dd { filter: saturate(1.18); }
 .brand-white .logo-jj,
 .brand-white .logo-dl,
